@@ -41,15 +41,7 @@ var gitHubURL = "https://github.com/"
 
 func getBuckets() []Bucket {
 	buckets := []Bucket{
-		{"main", "ScoopInstaller/Main"},
-		{"extras", "lukesampson/scoop-extras"},
-		{"versions", "ScoopInstaller/Versions"},
-		{"nirsoft", "kodybrown/scoop-nirsoft"},
-		{"php", "ScoopInstaller/PHP"},
-		{"nerd-fonts", "matthewjberger/scoop-nerd-fonts"},
-		{"nonportable", "TheRandomLabs/scoop-nonportable"},
-		{"java", "ScoopInstaller/Java"},
-		{"games", "Calinou/scoop-games"},
+		{"mgdpackages", "magadan/mgd-packages"},
 	}
 	return buckets
 }
