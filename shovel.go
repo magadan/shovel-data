@@ -81,10 +81,11 @@ func parseManifests(files []string) []string {
 		index := gabs.New()
 		// set filtered manifest keys
 		manifest, err := gabs.ParseJSONFile(files[i])
-		homepage, version, description, github := extractManifestContents(manifest);
+		homepage, version, description, license, github := extractManifestContents(manifest);
 		index.SetP(homepage, "homepage");
 		index.SetP(version, "version");
 		index.SetP(description, "description");
+		index.SetP(license, "license");
 		if github != "" {
 			index.SetP(github, "checkver.github");
 		}
@@ -106,11 +107,12 @@ func parseManifests(files []string) []string {
 	return result
 }
 
-func extractManifestContents(manifest *gabs.Container) (string, string, string, string) {
+func extractManifestContents(manifest *gabs.Container) (string, string, string, string, string) {
 	var homepage string
 	var version string
 	var description string
 	var github string
+	var license string
 	var ok bool
 	homepage, ok = manifest.Path("homepage").Data().(string)
 	if ok == false {
@@ -124,11 +126,16 @@ func extractManifestContents(manifest *gabs.Container) (string, string, string, 
 	if ok == false {
 		description = ""
 	}
+	license, ok = manifest.Path("license").Data().(string)
+	if ok == false {
+		license = ""
+	}
 	github, ok = manifest.Path("checkver.github").Data().(string)
 	if ok == false {
 		github = ""
 	}
-	return homepage, version, description, github
+	
+	return homepage, version, description, license, github
 }
 
 func extractManifestDetails(path string) (string, string, string) {
